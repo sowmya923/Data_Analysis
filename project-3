@@ -1,0 +1,35 @@
+-- i have worked as a sql developer and data analyst for a online shopping website,
+--i used to help for marketing team to improve sales and inventory
+--we used to manage databases and improve sales by maintaing data quality
+--helping marketing team to identify sales made on daily weekly and monthly bases
+
+--##sub-query
+--A subquery is a query that appears inside another query statement. Subqueries are also referred to as
+--sub- SELECT s or nested SELECT s.
+--(note)--The full SELECT syntax is valid in subqueries.
+SELECT first_name,customerid
+FROM customers c
+WHERE customerid =
+    (SELECT customerid
+     FROM c.customers
+     WHERE [first_name] = 'Chainring Bolts' );
+
+##group-by
+--The GROUP BY command is used to group the result set (used with aggregate functions: COUNT, MAX, MIN, SUM, AVG).
+
+--##regular group by
+SELECT COUNT(customerid), country
+FROM customers
+GROUP BY country
+
+##Groupby using COUNT, MAX, MIN, SUM, AVGg
+-- anything can be used instead of sum & Min to fetch the required detials that client needs
+--having can be used instead of where clause in aggregate function
+
+select categoryname, sum(unitsinstock) as totalcost
+from categories c inner join products p on c.categoryid = p.categoryid
+group by categoryname
+having sum(unitsinstock) > 500
+
+select productid, categoryid, min(unitprice) over
+(partition by categoryid) as price from products;
