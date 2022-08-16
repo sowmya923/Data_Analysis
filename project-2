@@ -1,0 +1,71 @@
+-- i have worked as a sql developer and data analyst for a online shopping website,
+--i used to help for marketing team to improve sales and inventory
+--we used to manage databases and improve sales by maintaing data quality
+--helping marketing team to identify sales made on daily weekly and monthly bases
+
+--involves Analyzing the data using SQL on the Oracle Database Software
+-- Understanding different types of Joins(Inner join, Left outer join, Right outer join, Full outer join, Self join)
+--different types of Operators(Minus, Union, Union all, Intersect).
+
+##INNER JOIN
+### inner join
+---The INNER JOIN keyword selects records that have matching values in both tables.
+
+select o.orderid, c.contactname
+FROM orders o
+INNER JOIN customers c ON o.customerid = c.customerid;
+
+
+## Left outer join
+---The LEFT JOIN keyword returns all records from the left table (table1),
+---and the matching records from the right table (table2).
+---The result is 0 records from the right side, if there is no match.
+
+SELECT c.contactname, o.orderid
+FROM customers c
+LEFT JOIN orders o ON c.customerid = o.customerid
+ORDER BY c.contactname
+
+### Right outer join,
+---The RIGHT JOIN keyword returns all records from the right table (table2),
+---and the matching records from the left table (table1).
+---The result is 0 records from the left side, if there is no match.
+
+SELECT o.orderid, e.lastname, e.firstname
+FROM orders o
+RIGHT JOIN employees e ON o.employeeid = e.employeeid
+ORDER BY o.orderid;
+
+##Full outer join
+--The FULL OUTER JOIN keyword returns all records
+--when there is a match in left (table1) or right (table2) table records.
+
+SELECT c.contactname, o.orderid
+FROM customers c
+full outer join orders o ON c.customerid = o.customerid
+ORDER BY c.contactname
+
+###Self join
+---A self join is a regular join, but the table is joined with itself.
+
+SELECT a.contactname AS CustomerName1, b.contactname AS CustomerName2, a.city
+FROM customers a, customers b
+WHERE a.customerid <> B.customerid
+AND a.city = b.city
+ORDER BY a.city;
+
+##union
+---The UNION operator is used to combine the result-set of two or more
+SELECT city, country FROM customers
+WHERE country='Germany'
+UNION
+SELECT city, country FROM suppliers
+WHERE country='Germany'
+ORDER BY city;
+
+##Union all
+SELECT  contactname, city, country
+FROM customers
+UNION all
+SELECT contactname, city, country
+FROM suppliers;
